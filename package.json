@@ -11,6 +11,7 @@
     "prettier": "prettier --write '**/*.{js,json,md}'"
   },
   "dependencies": {
+    "cookie-session": "^2.1.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0"
   },

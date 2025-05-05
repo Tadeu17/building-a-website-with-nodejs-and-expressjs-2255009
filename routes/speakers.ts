@@ -1,10 +1,15 @@
 import express, { Router, Request, Response } from 'express'; // Use TypeScript imports
 
-export default (): Router => {
+export default (params): Router => {
   const router: Router = express.Router();
 
-  router.get('/', (req: express.Request, res: express.Response) => {
-    res.send('Speakers list');
+  const { speakerService } = params;
+
+  router.get('/', async (req: express.Request, res: express.Response) => {
+    console.log('about to return speakers');
+    
+    const speakers = await speakerService.getList();
+    res.json(speakers);
   });
 
   router.get('/:shortname', (req: Request, res: Response) => {

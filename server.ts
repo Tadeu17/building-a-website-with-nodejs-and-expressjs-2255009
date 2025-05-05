@@ -1,19 +1,34 @@
 import express, { Application } from 'express';
 import path from 'path';
+import cookieSession from 'cookie-session';
 import routes from './routes';
+
+import FeedbackService from './services/FeedbackService';
+import SpeakerService from './services/SpeakerService';
+
+const feedbackService = new FeedbackService('./data/feedback.json');
+const speakerService = new SpeakerService('./data/speakers.json');
 
 const app: Application = express();
 const port = 3000;
 
+// REALLY HARD TO TRACK DOWN
+app.set('trust proxy', 1); // makes express trust the first proxy, a reverse proxy, like nginx
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['KJHvfHSDK:JHFGlhOSDFHg;oSDg', 'HKHGKfdhgolhB:KJFDBgkjldfbglkdfjb'],
+}))
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
+
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.get('/speakers', (req, res) => {
-  res.sendFile(path.join(__dirname, './static/speakers.html'));
-});
-
-app.use('/', routes());
+app.use('/', routes({
+  feedbackService,
+  speakerService,
+}));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

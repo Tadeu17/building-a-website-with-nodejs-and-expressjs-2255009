@@ -2,9 +2,12 @@ import express, { Router, Request, Response } from 'express'; // Import Request 
 
 const router: Router = express.Router();
 
-export default (): Router => {
-  router.get('/', (req: Request, res: Response) => {
-    res.send('Feedback list, ' + req);
+export default (params): Router => {
+  const { feedbackService } = params;
+
+  router.get('/', async (req: Request, res: Response) => {
+    const feedback = await feedbackService.getList();
+    res.json(feedback);
   });
 
   router.post('/', (req: Request, res: Response) => {
