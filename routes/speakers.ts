@@ -6,8 +6,6 @@ export default (params): Router => {
   const { speakerService } = params;
 
   router.get('/', async (req: express.Request, res: express.Response) => {
-    console.log('about to return speakers');
-    
     const speakers = await speakerService.getList();
     res.json(speakers);
   });
