@@ -7,10 +7,13 @@ export default (params): Router => {
 
   router.get('/', async (req: Request, res: Response) => {
     const speakers = await speakerService.getList();
-    res.render('layout', { pageTitle: 'Speakers!', template: 'speakers', speakers });
+    const artwork = await speakerService.getAllArtwork();
+    res.render('layout', { pageTitle: 'Speakers!', template: 'speakers', speakers, artwork });
   });
-  router.get('/:shortname', (req: Request, res: Response) => {
-    res.send('Speaker added' + req.params.shortname);
+  router.get('/:shortname', async (req: Request, res: Response) => {
+    const speaker = await speakerService.getSpeaker(req.params.shortname);
+    const artwork = await speakerService.getArtworkForSpeaker(req.params.shortname);
+    res.render('layout', { pageTitle: 'Speakers!', template: 'speakers-detail', speaker, artwork });
   });
 
   return router;
