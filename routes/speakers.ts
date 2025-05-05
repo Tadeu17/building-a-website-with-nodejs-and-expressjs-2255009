@@ -5,11 +5,10 @@ export default (params): Router => {
 
   const { speakerService } = params;
 
-  router.get('/', async (req: express.Request, res: express.Response) => {
+  router.get('/', async (req: Request, res: Response) => {
     const speakers = await speakerService.getList();
-    res.json(speakers);
+    res.render('layout', { pageTitle: 'Speakers!', template: 'speakers', speakers });
   });
-
   router.get('/:shortname', (req: Request, res: Response) => {
     res.send('Speaker added' + req.params.shortname);
   });
