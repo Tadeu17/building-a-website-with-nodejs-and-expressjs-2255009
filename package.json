@@ -11,9 +11,11 @@
     "prettier": "prettier --write '**/*.{js,json,md}'"
   },
   "dependencies": {
+    "body-parser": "^2.2.0",
     "cookie-session": "^2.1.0",
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",

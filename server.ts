@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import path from 'path';
 import cookieSession from 'cookie-session';
 import routes from './routes';
+import bodyParser from 'body-parser';
 
 import FeedbackService from './services/FeedbackService';
 import SpeakerService from './services/SpeakerService';
@@ -21,6 +22,8 @@ app.use(
     keys: ['KJHvfHSDK:JHFGlhOSDFHg;oSDg', 'HKHGKfdhgolhB:KJFDBgkjldfbglkdfjb'],
   })
 );
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
